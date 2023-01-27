@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState } from 'react'
 
 function TextForm({mode,showAlert,heading}) {
     const [text, setText] = useState('');
@@ -32,8 +32,8 @@ function TextForm({mode,showAlert,heading}) {
         var text = document.getElementById("exampleFormControlTextarea1");
         text.select();
         document.getSelection().removeAllRanges();
-        navigator.clipboard.writeText(text.value);
-        showAlert("Text copy!","success");
+        navigator.clipboard.writeText(text);
+        showAlert("Copy to Clipboard!","success");
     }
     const handleExtraspace = () =>{
         let newText = text.split(/[ ]+/);
@@ -86,7 +86,7 @@ function TextForm({mode,showAlert,heading}) {
             </div>
             <div className="container my-3" style={{color: mode === 'dark'?'white':'#042743'}}>
                 <h4 style={{color: mode === 'dark'?'white':'#042743'}}>Your text Summary</h4>
-                <p>{text.split(" ").filter((element)=>{return element.length !== 0}).length} words and {text.length} Characters</p>
+                <p>{text.split(/\s+/).filter((element)=>{return element.length !== 0}).length} words and {text.length} Characters</p>
                 <p>{0.008 * text.split(" ").filter((element)=>{return element.length !== 0}).length} minutes read</p>
                 <h4>Privew text</h4>
                 <p>{text.length>0?text:"Enter something in the textbox about to priview it here"}</p>
