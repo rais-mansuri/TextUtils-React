@@ -33,9 +33,6 @@ function App() {
       showAlert("light mode has been enabled", "success");
     }
   }
-  useEffect(() => {
-console.log("mode",mode)
-  }, [mode]);
 
   return (
     <>
@@ -45,8 +42,8 @@ console.log("mode",mode)
         <Alert alert={alerts} />
         <div className="container my-3">
          <Routes>
-          <Route path="/about" element={<About showAlert={showAlert}/>} />
-          <Route path="/" element={<TextForm mode={mode} heading="Enter the text of analyze"/>} />
+          <Route path="/about" element={<About showAlert={showAlert} mode={mode}/>} />
+          <Route path="/" element={<TextForm mode={mode} heading="Try TextUitls - Word Counter | Remove extra spaces | Character Counter"/>} />
          </Routes>
           {/* <TextForm heading="Enter the text of analyze" showAlert={showAlert} mode={mode}/> */}
         </div>

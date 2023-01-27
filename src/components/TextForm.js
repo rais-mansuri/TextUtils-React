@@ -31,6 +31,7 @@ function TextForm({mode,showAlert,heading}) {
     const handleCopytext = () =>{
         var text = document.getElementById("exampleFormControlTextarea1");
         text.select();
+        document.getSelection().removeAllRanges();
         navigator.clipboard.writeText(text.value);
         showAlert("Text copy!","success");
     }
@@ -67,30 +68,26 @@ function TextForm({mode,showAlert,heading}) {
     //     setText(newtext)
     // }
 
-    useEffect(() => {
-        console.log("mode2",mode)
-          }, []);
-
     return (
         <>
             <div className="container" style={{color: mode === 'dark'?'white':'#042743'}}>
-                <h3>{heading}</h3>
+                <h3 className='mb-4'>{heading}</h3>
                 <div className="mb-3">
-                    <textarea className="form-control" style={{backgroundColor: mode === 'dark'?'gray':'white',
+                    <textarea className="form-control" style={{backgroundColor: mode === 'dark'?'rgb(36 74 104)':'white',
                 color: mode === 'dark'?'white':'#042743'}} value={text} onChange={handleOnChange} id="exampleFormControlTextarea1" rows="5"></textarea>
                 </div>
-                <button className="btn btn-primary mx-1" onClick={handleUptext}>Convert to Uppercase</button>
-                <button className="btn btn-primary mx-1" onClick={handleLotext}>Convert to Lowercase</button>
-                <button className="btn btn-primary mx-1" onClick={handleCleartext}>Clear Text</button>
-                <button className="btn btn-primary mx-1" onClick={handleCopytext}>Copy Text</button>
-                <button className="btn btn-primary mx-1" onClick={handleExtraspace}>Remove Extra Space</button>
-                <button className="btn btn-primary mx-1" onClick={handleFirLetterUp}>First Later Capital</button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleLotext}>Convert to Lowercase</button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleExtraspace}>Remove Extra Space</button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleUptext}>Convert to Uppercase</button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleFirLetterUp}>First Later Capital</button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleCleartext}>Clear Text</button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleCopytext}>Copy Text</button>
               
             </div>
             <div className="container my-3" style={{color: mode === 'dark'?'white':'#042743'}}>
                 <h4 style={{color: mode === 'dark'?'white':'#042743'}}>Your text Summary</h4>
-                <p>{text.split(" ").length} words and {text.length} Characters</p>
-                <p>{0.008 * text.split(" ").length} minutes read</p>
+                <p>{text.split(" ").filter((element)=>{return element.length !== 0}).length} words and {text.length} Characters</p>
+                <p>{0.008 * text.split(" ").filter((element)=>{return element.length !== 0}).length} minutes read</p>
                 <h4>Privew text</h4>
                 <p>{text.length>0?text:"Enter something in the textbox about to priview it here"}</p>
             </div>
